@@ -10,4 +10,11 @@ public class tuple implements Serializable{
 	{
 		dataList = record;
 	}
+	
+	public String toString()
+	{
+
+		return dataList.toString();
+		
+	}
 }

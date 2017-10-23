@@ -14,12 +14,17 @@ public class Tester {
 		
 		Table test = new Table("Test");
 		test.addField("Name", 0);
+		String[] arrayTest = {"Angelo"};
+		test.addTuple(arrayTest);
 		System.out.println(test.getFieldNum());
 		 File file = new File("Test.txt");
 		 FileInputStream fileIn = new FileInputStream(file);
 		 ObjectInputStream objReader = new ObjectInputStream(fileIn);
 		 Table test2 = (Table) objReader.readObject();
 			System.out.println(test2.getFieldNum());
+			System.out.println(test2.getTuple(0));
+			System.out.println(test.getTuple(0));
+
 
 	}
 

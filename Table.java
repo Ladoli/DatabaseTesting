@@ -12,7 +12,6 @@ public class Table implements Serializable{
 	private LinkedList<tuple> tupleList = new LinkedList<tuple>();
 	String tableName;
 	int numberoffields = 0;
-	String yes = "testing damn it ahahsfgsdfgsdgsfdgaedfsdgthadffgjsffgsed";
 	
 	
 	Table(String name) throws IOException
@@ -50,12 +49,29 @@ public class Table implements Serializable{
 		 {
 			 result = "Please do not leave empty fields";
 		 }
-		 else
+		 else if(tupleList.size() == 0)
 		 {
+			 LinkedList<fieldData> tupleEntry = new LinkedList<fieldData>();
+
 			 for(String s: rawData)
 			 {
-				 
+				 tupleEntry.addFirst(new fieldData(s));
 			 }
+			 tupleList.addFirst(new tuple(tupleEntry));
+			 System.out.println("Tupple added, new size is " + tupleList.size());
+			 
+		 }
+		 else
+		 {
+			 LinkedList<fieldData> tupleEntry = new LinkedList<fieldData>();
+
+			 for(String s: rawData)
+			 {
+				 tupleEntry.add(new fieldData(s));
+			 }
+			 tupleList.add(new tuple(tupleEntry));
+			 System.out.println("Tupple added, new size is " + tupleList.size());
+			 
 		 }
 		 return result;
 	}
@@ -63,15 +79,27 @@ public class Table implements Serializable{
 	public void Update() throws IOException
 	{
 		 File file = new File(tableName + ".txt");
-		 /* BufferedWriter bwriter = new BufferedWriter(new FileWriter(file));
-		 bwriter.write(this.toString());
-		 System.out.println(this);
-		 bwriter.close(); */
-		 
 		 FileOutputStream fileOut = new FileOutputStream(file);
 		 ObjectOutputStream objWriter = new ObjectOutputStream(fileOut);
 		 objWriter.writeObject(this);
 		 objWriter.close();
+	}
+
+
+
+
+	public String getTuple(int i) {
+		
+		if(tupleList.peekFirst() == null)
+		{
+			return "Empty";
+		}
+		else {
+			tuple toGet =  tupleList.peekFirst();
+			
+			return toGet.toString();
+		}
+		
 	}
 	
 

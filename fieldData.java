@@ -13,6 +13,11 @@ public class fieldData implements Serializable{
 		data = rawData;
 	}
 	
-	
+	public String toString()
+	{
+
+		return data.toString();
+		
+	}
 
 }
