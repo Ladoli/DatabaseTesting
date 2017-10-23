@@ -3,10 +3,10 @@ import java.util.LinkedList;
 
 public class tuple implements Serializable{
 	
-	private LinkedList<fieldData> dataList = new LinkedList<fieldData>();
+	private myLL<fieldData> dataList = new myLL<fieldData>();
 	
 	
-	public tuple(LinkedList<fieldData> record)
+	public tuple(myLL<fieldData> record)
 	{
 		dataList = record;
 	}

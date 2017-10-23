@@ -8,8 +8,8 @@ import java.io.Serializable;
 import java.util.LinkedList;
 
 public class Table implements Serializable{
-	private LinkedList<fields> fieldsList = new LinkedList<fields>();
-	private LinkedList<tuple> tupleList = new LinkedList<tuple>();
+	private myLL<fields> fieldsList = new myLL<fields>();
+	private myLL<tuple> tupleList = new myLL<tuple>();
 	String tableName;
 	int numberoffields = 0;
 	
@@ -38,20 +38,20 @@ public class Table implements Serializable{
 		return numberoffields;
 	}
 	
-	public String addTuple(String[] rawData)
+	public String addTuple(String[] rawData) throws IOException
 	{
 		String result ="";
 		 if(rawData.length > numberoffields)
 		 {
 			 result = "Unforseen error, please contact admin";
 		 }
-		 else if(rawData.length > numberoffields)
+		 else if(rawData.length < numberoffields)
 		 {
 			 result = "Please do not leave empty fields";
 		 }
 		 else if(tupleList.size() == 0)
 		 {
-			 LinkedList<fieldData> tupleEntry = new LinkedList<fieldData>();
+			 myLL<fieldData> tupleEntry = new myLL<fieldData>();
 
 			 for(String s: rawData)
 			 {
@@ -63,16 +63,19 @@ public class Table implements Serializable{
 		 }
 		 else
 		 {
-			 LinkedList<fieldData> tupleEntry = new LinkedList<fieldData>();
+			 myLL<fieldData> tupleEntry = new myLL<fieldData>();
 
 			 for(String s: rawData)
 			 {
 				 tupleEntry.add(new fieldData(s));
 			 }
 			 tupleList.add(new tuple(tupleEntry));
+
 			 System.out.println("Tupple added, new size is " + tupleList.size());
 			 
 		 }
+		 Update();
+
 		 return result;
 	}
 	
@@ -95,7 +98,7 @@ public class Table implements Serializable{
 			return "Empty";
 		}
 		else {
-			tuple toGet =  tupleList.peekFirst();
+			tuple toGet =  (tuple) tupleList.peekFirst();
 			
 			return toGet.toString();
 		}

@@ -24,6 +24,7 @@ public class Tester {
 			System.out.println(test2.getFieldNum());
 			System.out.println(test2.getTuple(0));
 			System.out.println(test.getTuple(0));
+			System.out.println(test2.tableName);
 
 
 	}
