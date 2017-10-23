@@ -67,9 +67,9 @@ public class Table implements Serializable{
 
 			 for(String s: rawData)
 			 {
-				 tupleEntry.add(new fieldData(s));
+				 tupleEntry.push(new fieldData(s));
 			 }
-			 tupleList.add(new tuple(tupleEntry));
+			 tupleList.push(new tuple(tupleEntry));
 
 			 System.out.println("Tupple added, new size is " + tupleList.size());
 			 
@@ -93,12 +93,12 @@ public class Table implements Serializable{
 
 	public String getTuple(int i) {
 		
-		if(tupleList.peekFirst() == null)
+		if(tupleList.element() == null)
 		{
-			return "Empty";
+			return null;
 		}
 		else {
-			tuple toGet =  (tuple) tupleList.peekFirst();
+			tuple toGet =  (tuple) tupleList.get(i);
 			
 			return toGet.toString();
 		}
