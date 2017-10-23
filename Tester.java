@@ -17,13 +17,14 @@ public class Tester {
 		String[] arrayTest = {"Angelo"};
 		test.addTuple(arrayTest);
 		test.addField("Added Field", 0);
-		String[] arrayTest2 = {"Vi", "Yes"};
+		String[] arrayTest2 = {"Yes","Vi"};
 		test.addTuple(arrayTest2);
 		 File file = new File("Test.txt");
 		 FileInputStream fileIn = new FileInputStream(file);
 		 ObjectInputStream objReader = new ObjectInputStream(fileIn);
 		 Table test2 = (Table) objReader.readObject();
-			System.out.println(test2.getTuple(0)); //Because new entries are added to top of stack in a LinkedList, this one prints Vi, Yes
+		 	System.out.println(test2.getFields());
+		 	System.out.println(test2.getTuple(0)); //Because new entries are added to top of stack in a LinkedList, this one prints Vi, Yes
 			System.out.println(test2.getTuple(1));
 			
 			objReader.close();

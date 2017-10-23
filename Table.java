@@ -26,7 +26,7 @@ public class Table implements Serializable{
 	
 	public void addField(String s, int n) throws IOException
 	{
-		fieldsList.add(new fields(s,n,numberoffields));
+		fieldsList.push(new fields(s,n,numberoffields));
 		
 		numberoffields++;
 		Update();
@@ -49,19 +49,7 @@ public class Table implements Serializable{
 		 {
 			 result = "Please do not leave empty fields";
 		 }
-		 else if(tupleList.size() == 0)
-		 {
-			 myLL<fieldData> tupleEntry = new myLL<fieldData>();
-
-			 for(String s: rawData)
-			 {
-				 tupleEntry.addFirst(new fieldData(s));
-			 }
-			 tupleList.addFirst(new tuple(tupleEntry));
-			 System.out.println("Tupple added, new size is " + tupleList.size());
-			 
-		 }
-		 else
+		 else 
 		 {
 			 myLL<fieldData> tupleEntry = new myLL<fieldData>();
 
@@ -105,6 +93,16 @@ public class Table implements Serializable{
 		
 	}
 	
+	public String getFields() 
+	{
+		String fieldNames = ""; 
+		for(int i = fieldsList.size()-1; i >-1; i--) 
+		{
+			fieldNames += ((fields) fieldsList.get(i)).getfieldName() + "\t";
+		}
+		
+		return fieldNames;
+	}
 
 	
 }

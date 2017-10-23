@@ -2,7 +2,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class fields implements Serializable{
-	String fieldName;
+	private String fieldName;
 	int fieldType;
 	String fieldTypeName;
 	int fieldnumber;
@@ -41,6 +41,17 @@ public class fields implements Serializable{
 		{
 			fieldTypeName = "Date";
 		}
+	}
+
+
+
+
+
+
+
+	public String getfieldName() {
+		
+		return fieldName;
 	}
 	
 	/*
