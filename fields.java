@@ -1,7 +1,7 @@
 import java.io.Serializable;
 import java.util.Date;
 
-public class fields implements Serializable{
+public class fields implements Serializable, Comparable<fields>{
 	private String fieldName;
 	int fieldType;
 	String fieldTypeName;
@@ -53,58 +53,12 @@ public class fields implements Serializable{
 		
 		return fieldName;
 	}
-	
-	/*
-	public String datatypeCheck(String s)
-	{
-		String result = "Operation not completed";
-		
-		if(fieldType == 0)
-		{
-			result = "Data added";
-		}
-		else if(fieldType == 1)
-		{
-			try {
-			Integer.parseInt(s);
-			}
-			catch(Exception e)
-			{
-				result = "Wrong input format";
-			}
 
-			
-		}
-		else if(fieldType == 2)
-		{
-			try {
-			Double.parseDouble(s);
-			result = "Data added";
-			}
-			catch(Exception e)
-			{
-				result = "Wrong input format";
-			}
-
-			
-		}
-		else if(fieldType == 3)
-		{
-			try {
-			Date.parse(s);
-			result = "Data added";
-			}
-			catch(Exception e)
-			{
-				result = "Wrong input format";
-			}
-
-			
-		}
-		
-		
-		
-		return result;
+	@Override
+	public int compareTo(fields o) {
+		return fieldName.compareTo(o.getfieldName());
 	}
-	*/
+
+
+
 }

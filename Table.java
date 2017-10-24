@@ -27,11 +27,27 @@ public class Table implements Serializable{
 	public void addField(String s, int n) throws IOException
 	{
 		fieldsList.push(new fields(s,n,numberoffields));
-		
+		for(int i = 0; i<tupleList.size(); i++)
+		{
+			((tuple) tupleList.get(i)).setNull(numberoffields);
+		}
 		numberoffields++;
 		Update();
 		
 	}
+	
+	public void removeField(int n) throws IOException
+	{
+		for(int i = 0; i<tupleList.size(); i++)
+		{
+			((tuple) tupleList.get(i)).removeFieldEntry(n);
+		}
+		fieldsList.remove(n);
+		numberoffields++;
+		Update();
+		
+	}
+	
 	
 	public int getFieldNum()
 	{
@@ -65,6 +81,14 @@ public class Table implements Serializable{
 		 Update();
 
 		 return result;
+	}
+	
+	
+	public void removeTuple(int n) throws IOException
+	{
+		tupleList.remove(n);
+		 Update();
+
 	}
 	
 	public void Update() throws IOException
@@ -103,6 +127,52 @@ public class Table implements Serializable{
 		
 		return fieldNames;
 	}
+	
+	
+//	public static <T extends Comparable<T>> void quickSorter(int left, int right, myLL<T> list)
+//	{
+//		
+//		if (list == null || left >= right-1 || left == right ) 
+//		{
+//			return; 
+//		}
+//
+//	     int front = left - 1;
+//	     int last = right - 1;
+//	     T pivot = (T) list.get(last);
+//	     boolean needsWork = true;
+//	     while (needsWork)
+//	     {
+//	         while (((Comparable<T>) list.get(++front)).compareTo(pivot) < 0);
+//	         while (((Comparable<T>) list.get(--last)).compareTo(pivot) > 0  && last > left);
+//	         if (front < last)
+//	         {
+//	             swap(front,last, list);
+//	         }
+//	         else if(front != (right-1))
+//	         {
+//	        	 swap(front,right-1, list);
+//	             needsWork = false;   
+//	         }
+//	         else
+//	         {
+//	        	 needsWork = false;
+//	         }
+//	     }
+//	     
+//	     quickSorter(left, front, list);
+//	     quickSorter(front + 1, right, list);
+//	    
+//	}
+//	
+//	 
+//	 public static <T extends Comparable<T>> void swap(int a, int b, myLL<T> list)
+//	 {
+//			 T temp = (T) list.get(a);
+//			 list.set(a, list.get(b));
+//			 list.set(b, temp);
+//
+//	 }
 
 	
 }

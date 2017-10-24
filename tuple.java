@@ -17,4 +17,17 @@ public class tuple implements Serializable{
 		return dataList.toString();
 		
 	}
+
+	public void removeFieldEntry(int n) {
+			dataList.remove(n);
+		
+	}
+	
+	public void setNull(int n)
+	{
+		
+		dataList.push(null);
+		
+		
+	}
 }
