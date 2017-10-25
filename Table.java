@@ -209,14 +209,19 @@ public class Table implements Serializable{
 	 {
 		
 			quickSorter(0,tupleList.size(),searchfield);
+			printEntries();
 			int stuff = BinarySearch(search, 0, tupleList.size()-1, searchfield);
 			if (stuff == -1)
 			{
 				System.out.println("No records found");
 			}
 			else {
-				Comparable emp = (Comparable) tupleList.get(stuff);
-				System.out.println(emp.toString());
+				tuple foundrecord =  (tuple) tupleList.get(stuff++);
+				while(search.compareTo(foundrecord.getFData(searchfield).toString()) == 0)
+				{
+					System.out.println(foundrecord.toString());
+					foundrecord =  (tuple) tupleList.get(stuff++);
+				}
 			}
 			
 			
@@ -259,7 +264,7 @@ public class Table implements Serializable{
 	}
 	
 	
-	public static <T extends Comparable<T>> void quickSorter(int left, int right, int searchfield )
+	public static <T extends Comparable<T>> void quickSorter(int left, int right, int sortfield )
 	{
 		myLL<T> list = (myLL<T>) tupleList;
 	
@@ -274,15 +279,15 @@ public class Table implements Serializable{
 	     boolean needsWork = true;
 	     while (needsWork)
 	     {
-	    	 ((tuple) list.get(++front)).setsearchField(searchfield);
-	    	 ((tuple) list.get(--last)).setsearchField(searchfield);	         
+	    	 ((tuple) list.get(++front)).setsearchField(sortfield);
+	    	 ((tuple) list.get(--last)).setsearchField(sortfield);	         
 	    	 while (((Comparable<T>) list.get(front)).compareTo(pivot) < 0)
 	    	 {
-	    		 ((tuple) list.get(++front)).setsearchField(searchfield);
+	    		 ((tuple) list.get(++front)).setsearchField(sortfield);
 	    	 }
 	         while (((Comparable<T>) list.get(last)).compareTo(pivot) > 0  && last > left)
 	         {
-	        	 ((tuple) list.get(--last)).setsearchField(searchfield);	
+	        	 ((tuple) list.get(--last)).setsearchField(sortfield);	
 	         }
 	         if (front < last)
 	         {
@@ -299,9 +304,11 @@ public class Table implements Serializable{
 	         }
 	     }
 	     
-	     quickSorter(left, front,searchfield);
-	     quickSorter(front + 1, right,searchfield);
+	     quickSorter(left, front,sortfield);
+	     quickSorter(front + 1, right,sortfield);
 	    
+	     
+	     
 	}
 	
 	 

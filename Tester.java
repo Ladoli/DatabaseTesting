@@ -18,6 +18,11 @@ public class Tester {
 		test.addTuple(arrayTest2);
 		String[] arrayTest3 = {"No","May this be gone","La"};
 		test.addTuple(arrayTest3);
+		String[] arrayTest4 = {"Angelo", "Dupli", "Dupli"};
+		test.addTuple(arrayTest4);
+		test.addTuple(arrayTest4);
+		test.addTuple(arrayTest4);
+		test.addTuple(arrayTest4);
 		test.printEntries();
 		test.importdata();
 		 File file = new File("Default\\Test.txt");
@@ -26,7 +31,7 @@ public class Tester {
 		 Table test2 = (Table) objReader.readObject();
 		 test2.printEntries();
 		 objReader.close();
-			test.genBin("Subin", 2); //Sort works, but needs change. tuple searchField needs to be revised and based on Table instead or atleast passed from table.
+			test.genBin("Angelo", 2); //Sort works, but needs change. tuple searchField needs to be revised and based on Table instead or atleast passed from table.
 			
 			
 
