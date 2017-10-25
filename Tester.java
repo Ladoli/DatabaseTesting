@@ -25,7 +25,7 @@ public class Tester {
 		test.addTuple(arrayTest3);
 		test.printEntries();
 		test.importdata();
-		 File file = new File("Test.txt");
+		 File file = new File("Default\\Test.txt");
 		 FileInputStream fileIn = new FileInputStream(file);
 		 ObjectInputStream objReader = new ObjectInputStream(fileIn);
 		 Table test2 = (Table) objReader.readObject();

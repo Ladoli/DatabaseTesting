@@ -14,6 +14,7 @@ public class Table implements Serializable{
 	private myLL<tuple> tupleList = new myLL<tuple>();
 	String tableName;
 	int numberoffields = 0;
+	String databaseName = "Default";
 	
 	
 	Table(String name) throws IOException
@@ -23,7 +24,13 @@ public class Table implements Serializable{
 		
 	}
 	
-	
+	Table(String name, String dbName) throws IOException
+	{
+		tableName = name;
+		databaseName = dbName;
+		Update();
+		
+	}
 	
 	
 	public void addField(String s, int n) throws IOException
@@ -95,7 +102,23 @@ public class Table implements Serializable{
 	
 	public void Update() throws IOException
 	{
-		 File file = new File(tableName + ".txt");
+		File folder = new File(databaseName);
+
+		// if the directory does not exist, create it
+		if (!folder.exists()) {
+		    boolean result = false;
+
+		    try{
+		        folder.mkdir();
+		        result = true;
+		    } 
+		    catch(SecurityException se){
+		        //handle it
+		    }        
+
+		}
+		
+		 File file = new File(folder + "\\" + tableName + ".txt");
 		 FileOutputStream fileOut = new FileOutputStream(file);
 		 ObjectOutputStream objWriter = new ObjectOutputStream(fileOut);
 		 objWriter.writeObject(this);
