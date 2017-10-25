@@ -26,7 +26,8 @@ public class Tester {
 		 Table test2 = (Table) objReader.readObject();
 		 test2.printEntries();
 		 objReader.close();
-			//test2.genBin("Angelo"); Sorter not yet working
+			test.genBin("Phripp"); //Sort works, but needs change. tuple searchField needs to be revised and based on Table instead or atleast passed from table.
+			
 			
 
 	}

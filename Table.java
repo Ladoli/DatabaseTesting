@@ -53,7 +53,7 @@ public class Table implements Serializable{
 			((tuple) tupleList.get(i)).removeFieldEntry(n);
 		}
 		fieldsList.remove(n);
-		numberoffields++;
+		numberoffields--;
 		Update();
 		
 	}
@@ -219,13 +219,14 @@ public class Table implements Serializable{
 	public static <T extends Comparable<T>> int BinarySearch(T searchItem, int first, int last)
 	{
 		myLL<T> array = (myLL<T>) tupleList;
-		if(first == last && searchItem.compareTo((T) array.get(first)) == 0)
+		fieldData searchThis = new fieldData(searchItem);
+		if(first == last && searchThis.compareTo((tuple) array.get(first)) == 0)
 		{
 			return first;
 		}
 		int pos = -1;
 		int mid = (first + last)/2;
-		int diff = searchItem.compareTo((T) array.get(mid));
+		int diff = searchThis.compareTo((tuple) array.get(mid));
 		if(diff == 0)
 		{
 			pos = mid;
