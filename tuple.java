@@ -61,6 +61,11 @@ public class tuple implements Serializable, Comparable{
 	{
 		return (fieldData) dataList.get(searchField);
 	}
+	
+	public void setsearchField(int n)
+	{
+		searchField = n;
+	}
 
 	@Override
 	public int compareTo(Object o) {

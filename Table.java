@@ -205,27 +205,42 @@ public class Table implements Serializable{
 		
 	}
 	
-	 public <T> void genBin(String search)
+	 public <T> void genBin(String search, int searchfield)
 	 {
 		
-			quickSorter(0,tupleList.size());
-			int stuff = BinarySearch(search, 0, tupleList.size()-1);
+			quickSorter(0,tupleList.size(),searchfield);
+			int stuff = BinarySearch(search, 0, tupleList.size()-1, searchfield);
+			if (stuff == -1)
+			{
+				System.out.println("No records found");
+			}
+			else {
+				Comparable emp = (Comparable) tupleList.get(stuff);
+				System.out.println(emp.toString());
+			}
 			
-			Comparable emp = (Comparable) tupleList.get(stuff);
-			System.out.println(emp.toString());
 			
 	 }
 	
-	public static <T extends Comparable<T>> int BinarySearch(T searchItem, int first, int last)
+	public static <T extends Comparable<T>> int BinarySearch(T searchItem, int first, int last, int searchfield)
 	{
 		myLL<T> array = (myLL<T>) tupleList;
 		fieldData searchThis = new fieldData(searchItem);
-		if(first == last && searchThis.compareTo((tuple) array.get(first)) == 0)
+		((tuple) array.get(first)).setsearchField(searchfield);
+		((tuple) array.get(last)).setsearchField(searchfield);	
+		if(last - first <2)
 		{
+			if(searchThis.compareTo((tuple) array.get(first)) == 0)
 			return first;
+			else
+			{
+				return -1;
+			}
 		}
+		
 		int pos = -1;
 		int mid = (first + last)/2;
+		((tuple) array.get(mid)).setsearchField(searchfield);	
 		int diff = searchThis.compareTo((tuple) array.get(mid));
 		if(diff == 0)
 		{
@@ -233,18 +248,18 @@ public class Table implements Serializable{
 		}
 		else if(diff > 0)
 		{
-			pos = BinarySearch(searchItem,mid+1,last);
+			pos = BinarySearch(searchItem,mid+1,last,searchfield);
 		}
 		else
 		{
-			pos = BinarySearch(searchItem,first,mid-1);
+			pos = BinarySearch(searchItem,first,mid-1,searchfield);
 		}
 
 			return pos;
 	}
 	
 	
-	public static <T extends Comparable<T>> void quickSorter(int left, int right)
+	public static <T extends Comparable<T>> void quickSorter(int left, int right, int searchfield )
 	{
 		myLL<T> list = (myLL<T>) tupleList;
 	
@@ -259,8 +274,16 @@ public class Table implements Serializable{
 	     boolean needsWork = true;
 	     while (needsWork)
 	     {
-	         while (((Comparable<T>) list.get(++front)).compareTo(pivot) < 0);
-	         while (((Comparable<T>) list.get(--last)).compareTo(pivot) > 0  && last > left);
+	    	 ((tuple) list.get(++front)).setsearchField(searchfield);
+	    	 ((tuple) list.get(--last)).setsearchField(searchfield);	         
+	    	 while (((Comparable<T>) list.get(front)).compareTo(pivot) < 0)
+	    	 {
+	    		 ((tuple) list.get(++front)).setsearchField(searchfield);
+	    	 }
+	         while (((Comparable<T>) list.get(last)).compareTo(pivot) > 0  && last > left)
+	         {
+	        	 ((tuple) list.get(--last)).setsearchField(searchfield);	
+	         }
 	         if (front < last)
 	         {
 	             swap(front,last, list);
@@ -276,8 +299,8 @@ public class Table implements Serializable{
 	         }
 	     }
 	     
-	     quickSorter(left, front);
-	     quickSorter(front + 1, right);
+	     quickSorter(left, front,searchfield);
+	     quickSorter(front + 1, right,searchfield);
 	    
 	}
 	
