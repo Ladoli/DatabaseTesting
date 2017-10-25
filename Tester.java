@@ -1,10 +1,5 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
@@ -29,10 +24,9 @@ public class Tester {
 		 FileInputStream fileIn = new FileInputStream(file);
 		 ObjectInputStream objReader = new ObjectInputStream(fileIn);
 		 Table test2 = (Table) objReader.readObject();
-		 	test2.printEntries();
-			test2.removeField(1);
-			test2.printEntries();
-			objReader.close();
+		 test2.printEntries();
+		 objReader.close();
+			//test2.genBin("Angelo"); Sorter not yet working
 			
 
 	}

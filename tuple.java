@@ -1,9 +1,10 @@
 import java.io.Serializable;
 import java.util.LinkedList;
 
-public class tuple implements Serializable{
+public class tuple implements Serializable, Comparable{
 	
 	private myLL<fieldData> dataList = new myLL<fieldData>();
+	private int searchField = 0;
 	
 	
 	public tuple(myLL<fieldData> record)
@@ -32,6 +33,11 @@ public class tuple implements Serializable{
 		return tupleRecord;
 		
 	}
+	
+	public void setCompare(int n)
+	{
+		searchField = n;
+	}
 
 	public void removeFieldEntry(int n) {
 			dataList.remove(n);
@@ -44,5 +50,17 @@ public class tuple implements Serializable{
 		dataList.push(null);
 		
 		
+	}
+	
+	public fieldData getFData(int n)
+	{
+		return (fieldData) dataList.get(n);
+	}
+
+	@Override
+	public int compareTo(Object arg0) {
+		
+		return ((tuple) dataList.get(searchField)).compareTo(((tuple) arg0).getFData(searchField));
+
 	}
 }

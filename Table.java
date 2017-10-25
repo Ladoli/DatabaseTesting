@@ -11,10 +11,11 @@ import java.util.LinkedList;
 
 public class Table implements Serializable{
 	private myLL<fields> fieldsList = new myLL<fields>();
-	private myLL<tuple> tupleList = new myLL<tuple>();
+	private static myLL<tuple> tupleList = new myLL<tuple>();
 	String tableName;
 	int numberoffields = 0;
 	String databaseName = "Default";
+
 	
 	
 	Table(String name) throws IOException
@@ -106,11 +107,8 @@ public class Table implements Serializable{
 
 		// if the directory does not exist, create it
 		if (!folder.exists()) {
-		    boolean result = false;
-
 		    try{
 		        folder.mkdir();
-		        result = true;
 		    } 
 		    catch(SecurityException se){
 		        //handle it
@@ -119,6 +117,28 @@ public class Table implements Serializable{
 		}
 		
 		 File file = new File(folder + "\\" + tableName + ".txt");
+		 FileOutputStream fileOut = new FileOutputStream(file);
+		 ObjectOutputStream objWriter = new ObjectOutputStream(fileOut);
+		 objWriter.writeObject(this);
+		 objWriter.close();
+	}
+	
+	public void sortUpdate() throws IOException
+	{
+		File folder = new File(databaseName);
+
+		// if the directory does not exist, create it
+		if (!folder.exists()) {
+		    try{
+		        folder.mkdir();
+		    } 
+		    catch(SecurityException se){
+		        //handle it
+		    }        
+
+		}
+		
+		 File file = new File(folder + "\\" + tableName + "sort.txt");
 		 FileOutputStream fileOut = new FileOutputStream(file);
 		 ObjectOutputStream objWriter = new ObjectOutputStream(fileOut);
 		 objWriter.writeObject(this);
@@ -155,6 +175,11 @@ public class Table implements Serializable{
 	}
 	
 	
+	public int numberofentries()
+	{
+		return tupleList.size();
+	}
+	
 	public void printEntries() 
 	{
 		System.out.println(getFields().toString());
@@ -180,50 +205,89 @@ public class Table implements Serializable{
 		
 	}
 	
-//	public static <T extends Comparable<T>> void quickSorter(int left, int right, myLL<T> list)
-//	{
-//		
-//		if (list == null || left >= right-1 || left == right ) 
-//		{
-//			return; 
-//		}
-//
-//	     int front = left - 1;
-//	     int last = right - 1;
-//	     T pivot = (T) list.get(last);
-//	     boolean needsWork = true;
-//	     while (needsWork)
-//	     {
-//	         while (((Comparable<T>) list.get(++front)).compareTo(pivot) < 0);
-//	         while (((Comparable<T>) list.get(--last)).compareTo(pivot) > 0  && last > left);
-//	         if (front < last)
-//	         {
-//	             swap(front,last, list);
-//	         }
-//	         else if(front != (right-1))
-//	         {
-//	        	 swap(front,right-1, list);
-//	             needsWork = false;   
-//	         }
-//	         else
-//	         {
-//	        	 needsWork = false;
-//	         }
-//	     }
-//	     
-//	     quickSorter(left, front, list);
-//	     quickSorter(front + 1, right, list);
-//	    
-//	}
-//	
-//	 
-//	 public static <T extends Comparable<T>> void swap(int a, int b, myLL<T> list)
-//	 {
-//			 T temp = (T) list.get(a);
-//			 list.set(a, list.get(b));
-//			 list.set(b, temp);
-//
-//	 }
+	 public <T> void genBin(String search)
+	 {
+		
+			quickSorter(0,tupleList.size());
+			int stuff = BinarySearch(search, 0, tupleList.size()-1);
+			
+			Comparable emp = (Comparable) tupleList.get(stuff);
+			System.out.println(emp.toString());
+			
+	 }
+	
+	public static <T extends Comparable<T>> int BinarySearch(T searchItem, int first, int last)
+	{
+		myLL<T> array = (myLL<T>) tupleList;
+		if(first == last && searchItem.compareTo((T) array.get(first)) == 0)
+		{
+			return first;
+		}
+		int pos = -1;
+		int mid = (first + last)/2;
+		int diff = searchItem.compareTo((T) array.get(mid));
+		if(diff == 0)
+		{
+			pos = mid;
+		}
+		else if(diff > 0)
+		{
+			pos = BinarySearch(searchItem,mid+1,last);
+		}
+		else
+		{
+			pos = BinarySearch(searchItem,first,mid-1);
+		}
+
+			return pos;
+	}
+	
+	
+	public static <T extends Comparable<T>> void quickSorter(int left, int right)
+	{
+		myLL<T> list = (myLL<T>) tupleList;
+	
+		if (list == null || left >= right-1 || left == right ) 
+		{
+			return; 
+		}
+
+	     int front = left - 1;
+	     int last = right - 1;
+	     T pivot = (T) list.get(last);
+	     boolean needsWork = true;
+	     while (needsWork)
+	     {
+	         while (((Comparable<T>) list.get(++front)).compareTo(pivot) < 0);
+	         while (((Comparable<T>) list.get(--last)).compareTo(pivot) > 0  && last > left);
+	         if (front < last)
+	         {
+	             swap(front,last, list);
+	         }
+	         else if(front != (right-1))
+	         {
+	        	 swap(front,right-1, list);
+	             needsWork = false;   
+	         }
+	         else
+	         {
+	        	 needsWork = false;
+	         }
+	     }
+	     
+	     quickSorter(left, front);
+	     quickSorter(front + 1, right);
+	    
+	}
+	
+	 
+	 public static <T extends Comparable<T>> void swap(int a, int b, myLL<T> list)
+	 {
+			 T temp = (T) list.get(a);
+			 list.set(a, list.get(b));
+			 list.set(b, temp);
+
+	 }
 
 	
 }
