@@ -1,15 +1,17 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.LinkedList;
 
 public class Table implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4225828966516582087L;
 	private myLL<fields> fieldsList = new myLL<fields>();
 	private static myLL<tuple> tupleList = new myLL<tuple>();
 	String tableName;
@@ -64,7 +66,7 @@ public class Table implements Serializable{
 		return numberoffields;
 	}
 	
-	public String addTuple(String[] rawData) throws IOException
+	public String addTuple(String[] rawData) 
 	{
 		String result ="";
 		 if(rawData.length > numberoffields)
@@ -101,48 +103,84 @@ public class Table implements Serializable{
 
 	}
 	
-	public void Update() throws IOException
+	public void Update()
 	{
 		File folder = new File(databaseName);
 
-		// if the directory does not exist, create it
 		if (!folder.exists()) {
 		    try{
 		        folder.mkdir();
 		    } 
 		    catch(SecurityException se){
-		        //handle it
+		    	//Do nothing
 		    }        
-
 		}
 		
 		 File file = new File(folder + "\\" + tableName + ".txt");
-		 FileOutputStream fileOut = new FileOutputStream(file);
-		 ObjectOutputStream objWriter = new ObjectOutputStream(fileOut);
-		 objWriter.writeObject(this);
-		 objWriter.close();
+		 FileOutputStream fileOut = null;
+		 ObjectOutputStream objWriter = null;
+		try {
+			fileOut = new FileOutputStream(file);
+		} catch (FileNotFoundException e) {
+			return;
+		}
+		try {
+			objWriter = new ObjectOutputStream(fileOut);
+		} catch (IOException e) {
+			try {
+				fileOut.close();
+			} catch (IOException e1) {
+
+			}
+			return;
+		}
+		 try {
+			objWriter.writeObject(this);
+			 objWriter.close();
+
+		} catch (IOException e) {
+			return;
+		}
 	}
 	
-	public void sortUpdate() throws IOException
+	public void sortUpdate()
 	{
 		File folder = new File(databaseName);
 
-		// if the directory does not exist, create it
 		if (!folder.exists()) {
 		    try{
 		        folder.mkdir();
 		    } 
 		    catch(SecurityException se){
-		        //handle it
+		    	//Should never happen really...
 		    }        
-
 		}
 		
-		 File file = new File(folder + "\\" + tableName + "sort.txt");
-		 FileOutputStream fileOut = new FileOutputStream(file);
-		 ObjectOutputStream objWriter = new ObjectOutputStream(fileOut);
-		 objWriter.writeObject(this);
-		 objWriter.close();
+		 File file = new File(folder + "\\" + tableName + "sorted.txt");
+		 FileOutputStream fileOut = null;
+		 ObjectOutputStream objWriter = null;
+		try {
+			fileOut = new FileOutputStream(file);
+		} catch (FileNotFoundException e) {
+			return;
+		}
+		try {
+			objWriter = new ObjectOutputStream(fileOut);
+		} catch (IOException e) {
+			try {
+				fileOut.close();
+			} catch (IOException e1) {
+
+			}
+			return;
+		}
+		 try {
+			objWriter.writeObject(this);
+			 objWriter.close();
+
+		} catch (IOException e) {
+			return;
+		}
 	}
 
 
@@ -161,6 +199,22 @@ public class Table implements Serializable{
 		}
 		
 	}
+	
+	
+	public String setTuple(int i, int fieldnum, Comparable editedData) {
+		
+		if(tupleList.element() == null)
+		{
+			return "Record does not exist"; //Should technically never happen once GUI is made
+		}
+		else {
+			((tuple) tupleList.get(i)).setFData(fieldnum, editedData);
+			Update();
+			return "Record changed";
+		}
+		
+	}
+	
 	
 	public String getFields() 
 	{

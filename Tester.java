@@ -1,11 +1,12 @@
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
 public class Tester {
 
-	public static void main(String[] args) throws IOException, ClassNotFoundException {
+	public static void main(String[] args) throws IOException {
 		
 		
 		Table test = new Table("Test");
@@ -25,18 +26,36 @@ public class Tester {
 		test.addTuple(arrayTest4);
 		test.printEntries();
 		test.importdata();
-		 File file = new File("Default\\Test.txt");
-		 FileInputStream fileIn = new FileInputStream(file);
-		 ObjectInputStream objReader = new ObjectInputStream(fileIn);
-		 Table test2 = (Table) objReader.readObject();
-		 test2.printEntries();
-		 objReader.close();
-			test.genBin("Angelo", 2); //Sort works, but needs change. tuple searchField needs to be revised and based on Table instead or atleast passed from table.
-			
+		test.genBin("Angelo", 2); 
 			
 
 	}
 	
-	
+	public Table readTable()
+	{
+		 File file = new File("Default\\Test.txt");
+		 FileInputStream fileIn = null;
+		try {
+			fileIn = new FileInputStream(file);
+			ObjectInputStream objReader = new ObjectInputStream(fileIn);
+			Table test2 = (Table) objReader.readObject();
+			objReader.close();
+			return test2;
+		} catch (FileNotFoundException e) {
+			return null;
+		} catch (IOException e) {
+			return null;
+		} catch (ClassNotFoundException e) {
+			try {
+				fileIn.close();
+			} catch (IOException e1) {
+
+			}
+			return null;
+		}
+		 
+		 
+		 
+	}
 
 }

@@ -1,3 +1,4 @@
 Replace all throws...
 Create GUI
 Refactor code
+Fit with GUI
