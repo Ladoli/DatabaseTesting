@@ -120,7 +120,8 @@ public class Table implements Serializable{
 	public String getFields() 
 	{
 		String fieldNames = ""; 
-		for(int i = fieldsList.size()-1; i >-1; i--) 
+	
+		for(int i = fieldsList.size()-1; i >-1; i--) 		
 		{
 			fieldNames += ((fields) fieldsList.get(i)).getfieldName() + "\t";
 		}
@@ -128,6 +129,16 @@ public class Table implements Serializable{
 		return fieldNames;
 	}
 	
+	
+	public void printEntries() 
+	{
+		System.out.println(getFields().toString());
+		for(int i = tupleList.size()-1; i >-1; i--) 		
+		{
+			System.out.println(getTuple(i).toString());
+		}
+		
+	}
 	
 //	public static <T extends Comparable<T>> void quickSorter(int left, int right, myLL<T> list)
 //	{

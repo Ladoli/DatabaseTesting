@@ -13,8 +13,23 @@ public class tuple implements Serializable{
 	
 	public String toString()
 	{
+		String tupleRecord ="";
 
-		return dataList.toString();
+		for(int i = dataList.size()-1; i > -1; i--) 		
+		{
+			if(dataList.get(i) == null)
+			{
+				tupleRecord += "null" + "\t";
+			}
+			else
+			tupleRecord += ((fieldData) dataList.get(i)).toString() + "\t";
+		}	
+			
+			
+			
+		dataList.toString();
+
+		return tupleRecord;
 		
 	}
 

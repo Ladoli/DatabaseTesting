@@ -22,19 +22,14 @@ public class Tester {
 		test.addTuple(arrayTest2);
 		String[] arrayTest3 = {"No","May this be gone","La"};
 		test.addTuple(arrayTest3);
+		test.printEntries();
 		 File file = new File("Test.txt");
 		 FileInputStream fileIn = new FileInputStream(file);
 		 ObjectInputStream objReader = new ObjectInputStream(fileIn);
 		 Table test2 = (Table) objReader.readObject();
-		 	System.out.println(test2.getFields());
-		 	System.out.println(test2.getTuple(0)); //Because new entries are added to top of stack in a LinkedList, this one prints Vi, Yes
-			System.out.println(test2.getTuple(1));
-			System.out.println(test2.getTuple(2));
+		 	test2.printEntries();
 			test2.removeField(1);
-			System.out.println(test2.getFields());
-		 	System.out.println(test2.getTuple(0)); //Because new entries are added to top of stack in a LinkedList, this one prints Vi, Yes
-			System.out.println(test2.getTuple(1));
-			System.out.println(test2.getTuple(2));
+			test2.printEntries();
 			objReader.close();
 	}
 
