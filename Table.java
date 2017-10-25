@@ -1,6 +1,8 @@
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -137,6 +139,21 @@ public class Table implements Serializable{
 		{
 			System.out.println(getTuple(i).toString());
 		}
+		
+	}
+	
+	public void importdata() throws IOException
+	{
+		File file = new File("MockData.txt");
+		BufferedReader bR = new BufferedReader(new FileReader(file));
+		String entry = bR.readLine();
+		while(entry != null)
+		{
+			String[] enterThis = entry.split(",");
+			addTuple(enterThis);
+			entry = bR.readLine();
+		}
+		bR.close();
 		
 	}
 	

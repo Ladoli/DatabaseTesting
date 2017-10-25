@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class Tester {
 		String[] arrayTest3 = {"No","May this be gone","La"};
 		test.addTuple(arrayTest3);
 		test.printEntries();
+		test.importdata();
 		 File file = new File("Test.txt");
 		 FileInputStream fileIn = new FileInputStream(file);
 		 ObjectInputStream objReader = new ObjectInputStream(fileIn);
@@ -31,6 +33,10 @@ public class Tester {
 			test2.removeField(1);
 			test2.printEntries();
 			objReader.close();
+			
+
 	}
+	
+	
 
 }
